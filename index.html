@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Timber – Tablou de bord</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root { --a:#a855f7; --b:#22d3ee; --bg:#07070c; --panel:#0e0e16; --line:#1d1d2b; }
+
+body { font-family:'Inter',sans-serif; background:var(--bg); color:#d6d6e3; }
+
+h1,h2,h3,.brand { font-family:'Space Grotesk',sans-serif; }
+
+.glow-text { background:linear-gradient(90deg,var(--a),var(--b)); -webkit-background-clip:text; background-clip:text; color:transparent;
+
+filter:drop-shadow(0 0 10px color-mix(in srgb,var(--a) 70%,transparent)); }
+
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:16px; }
+
+.hero { background:
+
+radial-gradient(600px 240px at 90% 0%,color-mix(in srgb,var(--a) 28%,transparent),transparent 70%),
+
+radial-gradient(500px 240px at 0% 100%,color-mix(in srgb,var(--b) 20%,transparent),transparent 70%),var(--panel); }
+
+.nav { display:flex; align-items:center; gap:.75rem; padding:.6rem .8rem; border-radius:10px; color:#9a9ab0; transition:.15s; font-size:.92rem; }
+
+.nav:hover { background:#15151f; color:#fff; }
+
+.nav.active { background:linear-gradient(90deg,color-mix(in srgb,var(--a) 22%,transparent),transparent); color:#fff; box-shadow:inset 2px 0 0 var(--a); }
+
+.nav i { width:18px; height:18px; }
+
+.btn { background:linear-gradient(90deg,var(--a),var(--b)); color:#07070c; font-weight:600; border-radius:10px; padding:.55rem 1rem; transition:.15s; }
+
+.btn:hover { box-shadow:0 0 22px color-mix(in srgb,var(--a) 55%,transparent); }
+
+.chip { padding:.35rem .85rem; border-radius:999px; border:1px solid var(--line); font-size:.82rem; color:#9a9ab0; transition:.15s; }
+
+.chip:hover { color:#fff; }
+
+.chip.on { border-color:var(--b); color:var(--b); background:color-mix(in srgb,var(--b) 10%,transparent); }
+
+.save.on { color:var(--a); }
+
+.save.on svg { fill:var(--a); }
+
+.swatch { width:100%; height:34px; border-radius:8px; border:2px solid transparent; transition:.15s; }
+
+.swatch.on { border-color:#fff; }
+
+:focus-visible { outline:2px solid var(--b); outline-offset:2px; }
+
+@media (prefers-reduced-motion:reduce){ *{transition:none!important} }
+
+</style>
+
+</head>
+
+<body class="min-h-screen">
+
+
+
+<!-- Bară mobil -->
+
+<header class="lg:hidden flex items-center justify-between px-4 py-3 border-b border-[#1d1d2b]">
+
+<span class="brand text-xl font-bold glow-text">Timber</span>
+
+<button id="menuBtn" class="p-2 rounded-lg hover:bg-[#15151f]" aria-label="Deschide meniul"><i data-lucide="menu"></i></button>
+
+</header>
+
+
+
+<!-- Sidebar -->
+
+<aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 -translate-x-full lg:translate-x-0 transition-transform bg-[#0a0a11] border-r border-[#1d1d2b] flex flex-col p-4">
+
+<div class="flex items-center gap-3 px-2 pb-6">
+
+<svg width="42" height="42" viewBox="0 0 48 48" fill="none" aria-hidden="true" style="filter:drop-shadow(0 0 8px var(--a))">
+
+<defs><linearGradient id="g" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#a855f7"/><stop offset="1" stop-color="#22d3ee"/></linearGradient></defs>
+
+<rect x="1.5" y="1.5" width="45" height="45" rx="12" stroke="url(#g)" stroke-width="2"/>
+
+<path d="M12 17l4-6 5 4h6l5-4 4 6-2 11-8 7h-4l-8-7z" stroke="url(#g)" stroke-width="2" stroke-linejoin="round"/>
+
+<path d="M21 30h6v6h-6z" fill="url(#g)"/>
+
+<circle cx="19" cy="22" r="1.8" fill="#22d3ee"/><circle cx="29" cy="22" r="1.8" fill="#22d3ee"/>
+
+<path d="M22 26h4l-2 2z" fill="#a855f7"/>
+
+</svg>
+
+<span class="brand text-2xl font-bold glow-text">Timber</span>
+
+</div>
+
+
+
+<nav class="flex-1 space-y-1 overflow-y-auto" aria-label="Navigare principală">
+
+<a href="#" class="nav active"><i data-lucide="sparkles"></i>Oportunități</a>
+
+<a href="#" class="nav"><i data-lucide="users"></i>Echipe</a>
+
+<a href="#" class="nav"><i data-lucide="folder-kanban"></i>Proiecte</a>
+
+<a href="#" class="nav"><i data-lucide="message-circle"></i>Chat</a>
+
+<div class="my-3 border-t border-[#1d1d2b]"></div>
+
+<a href="#" class="nav"><i data-lucide="log-in"></i>Autentificare</a>
+
+<a href="#" class="nav"><i data-lucide="user-plus"></i>Înregistrare</a>
+
+<a href="#" class="nav" style="color:var(--a)"><i data-lucide="zap"></i>Upgrade</a>
+
+</nav>
+
+
+
+<div class="space-y-4 pt-4 border-t border-[#1d1d2b]">
+
+<label class="flex items-center gap-3 px-2 text-sm text-[#9a9ab0]">
+
+<i data-lucide="languages" class="w-[18px] h-[18px]"></i>
+
+<select class="flex-1 bg-[#12121b] border border-[#1d1d2b] rounded-lg px-2 py-1.5 text-white">
+
+<option>Română</option><option>English</option><option>Français</option>
+
+</select>
+
+</label>
+
+<div class="px-2">
+
+<p class="text-sm text-[#9a9ab0] mb-2 flex items-center gap-2"><i data-lucide="palette" class="w-[18px] h-[18px]"></i>Design Themes</p>
+
+<div class="grid grid-cols-3 gap-2" id="themes">
+
+<button class="swatch on" data-a="#a855f7" data-b="#22d3ee" style="background:linear-gradient(135deg,#a855f7,#22d3ee)" aria-label="Neon"></button>
+
+<button class="swatch" data-a="#d946ef" data-b="#60a5fa" style="background:linear-gradient(135deg,#d946ef,#60a5fa)" aria-label="Ultraviolet"></button>
+
+<button class="swatch" data-a="#6366f1" data-b="#2dd4bf" style="background:linear-gradient(135deg,#6366f1,#2dd4bf)" aria-label="Aurora"></button>
+
+</div>
+
+</div>
+
+</div>
+
+</aside>
+
+<div id="scrim" class="fixed inset-0 z-30 bg-black/60 hidden lg:hidden"></div>
+
+
+
+<!-- Conținut -->
+
+<main class="lg:ml-64 p-4 sm:p-8 max-w-6xl">
+
+<section class="hero panel p-6 sm:p-10">
+
+<p class="text-sm" style="color:var(--b)">Bună ziua, Andrei</p>
+
+<h1 class="text-4xl sm:text-6xl font-bold text-white mt-2 leading-tight">Construiește împreună,<br>un buștean odată.</h1>
+
+<p class="mt-4 max-w-xl text-[#a3a3ba]">Găsește proiecte, formează echipe și livrează mai repede. Ai 3 oportunități noi care se potrivesc profilului tău.</p>
+
+<div class="mt-6 flex flex-wrap gap-3">
+
+<button class="btn flex items-center gap-2"><i data-lucide="plus" class="w-4 h-4"></i>Proiect nou</button>
+
+<button class="chip !px-4 !py-2 flex items-center gap-2 text-white"><i data-lucide="users" class="w-4 h-4"></i>Creează o echipă</button>
+
+</div>
+
+</section>
+
+
+
+<section class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-4" aria-label="Statistici">
+
+<div class="panel p-5"><i data-lucide="briefcase" class="w-5 h-5" style="color:var(--a)"></i><p class="text-3xl font-bold text-white mt-3">24</p><p class="text-sm text-[#8a8aa0]">Oportunități active</p></div>
+
+<div class="panel p-5"><i data-lucide="users" class="w-5 h-5" style="color:var(--b)"></i><p class="text-3xl font-bold text-white mt-3">8</p><p class="text-sm text-[#8a8aa0]">Echipe</p></div>
+
+<div class="panel p-5"><i data-lucide="folder-kanban" class="w-5 h-5" style="color:var(--a)"></i><p class="text-3xl font-bold text-white mt-3">12</p><p class="text-sm text-[#8a8aa0]">Proiecte în lucru</p></div>
+
+<div class="panel p-5"><i data-lucide="bookmark" class="w-5 h-5" style="color:var(--b)"></i><p id="savedCount" class="text-3xl font-bold text-white mt-3">0</p><p class="text-sm text-[#8a8aa0]">Salvate de tine</p></div>
+
+</section>
+
+
+
+<section class="panel p-5 sm:p-6 mt-4">
+
+<div class="flex flex-wrap items-center justify-between gap-3">
+
+<h2 class="text-2xl font-semibold text-white">Oportunități pentru tine</h2>
+
+<div class="flex flex-wrap gap-2" id="filters" role="group" aria-label="Filtre">
+
+<button class="chip on" data-f="all">Toate</button>
+
+<button class="chip" data-f="remote">Remote</button>
+
+<button class="chip" data-f="hibrid">Hibrid</button>
+
+<button class="chip" data-f="contract">Contract</button>
+
+</div>
+
+</div>
+
+<ul id="list" class="mt-5 divide-y divide-[#1d1d2b]"></ul>
+
+<p id="empty" class="hidden text-center text-[#8a8aa0] py-8">Nicio oportunitate pentru acest filtru. Alege altă categorie.</p>
+
+</section>
+
+</main>
+
+
+
+<script>
+
+const data = [
+
+{t:"Dezvoltator front-end pentru platformă de mobilitate", o:"Nordic Labs", tag:"remote", pay:"4.500 – 6.000 €/lună", ic:"code-2"},
+
+{t:"Designer de produs pentru aplicație fintech", o:"Cobalt Pay", tag:"hibrid", pay:"3.800 – 5.000 €/lună", ic:"pen-tool"},
+
+{t:"Inginer de date, proiect pe 6 luni", o:"Atlas Grid", tag:"contract", pay:"550 €/zi", ic:"database"},
+
+{t:"Manager de comunitate pentru startup de educație", o:"Lumen", tag:"remote", pay:"2.800 – 3.600 €/lună", ic:"megaphone"},
+
+{t:"Dezvoltator mobil Flutter", o:"Zenit Apps", tag:"hibrid", pay:"4.000 – 5.500 €/lună", ic:"smartphone"},
+
+{t:"Consultant securitate cibernetică", o:"Ironbark", tag:"contract", pay:"650 €/zi", ic:"shield-check"}
+
+];
+
+const label = {remote:"Remote", hibrid:"Hibrid", contract:"Contract"};
+
+const saved = new Set(); let filter = "all";
+
+const $ = s => document.querySelector(s);
+
+
+
+function render(){
+
+const rows = data.filter(d => filter==="all" || d.tag===filter);
+
+$("#empty").classList.toggle("hidden", rows.length>0);
+
+$("#list").innerHTML = rows.map(d => `
+
+<li class="flex items-center gap-4 py-4">
+
+<div class="w-11 h-11 shrink-0 rounded-xl flex items-center justify-center bg-[#15151f] border border-[#1d1d2b]" style="color:var(--b)"><i data-lucide="${d.ic}" class="w-5 h-5"></i></div>
+
+<div class="flex-1 min-w-0">
+
+<h3 class="text-white font-medium truncate">${d.t}</h3>
+
+<p class="text-sm text-[#8a8aa0]">${d.o} · ${label[d.tag]} · ${d.pay}</p>
+
+</div>
+
+<button class="save p-2 rounded-lg hover:bg-[#15151f] text-[#8a8aa0] ${saved.has(d.t)?'on':''}" data-t="${d.t}" aria-label="Salvează oportunitatea" aria-pressed="${saved.has(d.t)}"><i data-lucide="bookmark" class="w-5 h-5"></i></button>
+
+</li>`).join("");
+
+$("#savedCount").textContent = saved.size;
+
+lucide.createIcons();
+
+}
+
+
+
+$("#filters").addEventListener("click", e => {
+
+const b = e.target.closest("[data-f]"); if(!b) return;
+
+filter = b.dataset.f;
+
+document.querySelectorAll("#filters .chip").forEach(c => c.classList.toggle("on", c===b));
+
+render();
+
+});
+
+$("#list").addEventListener("click", e => {
+
+const b = e.target.closest(".save"); if(!b) return;
+
+const t = b.dataset.t; saved.has(t) ? saved.delete(t) : saved.add(t);
+
+render();
+
+});
+
+$("#themes").addEventListener("click", e => {
+
+const s = e.target.closest(".swatch"); if(!s) return;
+
+document.documentElement.style.setProperty("--a", s.dataset.a);
+
+document.documentElement.style.setProperty("--b", s.dataset.b);
+
+document.querySelectorAll(".swatch").forEach(x => x.classList.toggle("on", x===s));
+
+});
+
+
+
+const sb = $("#sidebar"), sc = $("#scrim");
+
+const toggle = open => { sb.classList.toggle("-translate-x-full", !open); sc.classList.toggle("hidden", !open); };
+
+$("#menuBtn").addEventListener("click", () => toggle(true));
+
+sc.addEventListener("click", () => toggle(false));
+
+
+
+render();
+
+</script>
+
+</body>
+
+</html>
+
